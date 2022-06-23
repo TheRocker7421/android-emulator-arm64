@@ -8,11 +8,17 @@ jobs:
     steps:
       - name: deps
         run: |
-          sudo apt-get update && sudo apt-get install -y python3 python-is-python3 crossbuild-essential-arm64 mesa-common-dev ccache repo git llvm
+          sudo apt-get update && sudo apt-get install -y python3 python-is-python3 crossbuild-essential-arm64 mesa-common-dev ccache git llvm
           pip3 install absl-py urlfetch
           sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
           ccache -o max_size=20G
           ccache -o hard_link=true
+      - name: deps - repo command
+        run: |
+          mkdir -p ~/.bin
+          PATH="${HOME}/.bin:${PATH}"
+          curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
+          chmod a+rx ~/.bin/repo
       - name: download
         run: |
           git config --global user.email "you@example.com"
