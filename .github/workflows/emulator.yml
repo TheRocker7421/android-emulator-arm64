@@ -19,12 +19,13 @@ jobs:
           PATH="${HOME}/.bin:${PATH}"
           curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
           chmod a+rx ~/.bin/repo
+          /home/runner/.bin/repo init
       - name: download
         run: |
           git config --global user.email "you@example.com"
           git config --global user.name "Your Name"
-          repo init -u https://android.googlesource.com/platform/manifest -b emu-master-dev --depth=1
-          repo sync -vcj 12
+          /home/runner/.bin/repo init -u https://android.googlesource.com/platform/manifest -b emu-master-dev --depth=1
+          /home/runner/.bin/repo sync -vcj 12
       - name: ccache
         uses: actions/cache@v2
         with:
